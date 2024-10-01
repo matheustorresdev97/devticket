@@ -1,4 +1,28 @@
-### Test Hello
-GET http://localhost:3000/prefixo/test
-### Test Events
+### Create event
+# @name createEvent
+POST http://localhost:3000/events
+Content-Type: application/json
+{
+  "name": "Event 1",
+  "description": "This is a event 1",
+  "date": "2024-06-22T20:00:00",
+  "price": 100
+}
+### List event
 GET http://localhost:3000/events
+
+### Event id
+@eventId = {{ createEvent.response.body.id }}
+### Find event by Id
+GET http://localhost:3000/events/{{eventId}}
+### Update event
+PATCH http://localhost:3000/events/{{eventId}}
+Content-Type: application/json
+{
+  "name": "Event 1 update",
+  "description": "This is a event 1 update",
+  "date": "2024-06-22T20:00:00",
+  "price": 150
+}
+### Delete event
+DELETE http://localhost:3000/events/{{eventId}}
