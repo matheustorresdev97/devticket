@@ -1,0 +1,79 @@
+### Listar eventos
+GET http://localhost:3001/eventos
+
+### Criar evento
+# @name criarEvento
+POST http://localhost:3001/eventos
+Content-Type: application/json
+
+{
+  "nome": "Evento 1",
+  "descricao": "Decrição do evento 1",
+  "data": "2024-06-22T20:00:00",
+  "preco": 120
+}
+
+### Evento id
+@eventoId = {{ criarEvento.response.body.id }}
+
+### Buscar evento por Id
+GET http://localhost:3001/eventos/{{eventoId}}
+
+### Atualizar evento
+PATCH http://localhost:3001/eventos/{{eventoId}}
+Content-Type: application/json
+
+{
+  "nome": "Evento 1 atualizado",
+  "descricao": "Decrição do evento 1 atualizado",
+  "data": "2024-06-22T20:00:00",
+  "preco": 130
+}
+
+### Deletar evento por id
+DELETE http://localhost:3001/eventos/{{eventoId}}
+
+
+
+### Listar lugares
+GET http://localhost:3001/eventos/{{eventoId}}/lugares
+
+### Criar lugar
+# @name createSpot
+POST http://localhost:3001/eventos/{{eventoId}}/lugares
+Content-Type: application/json
+
+{
+  "nome": "A1"
+}
+
+### Spot id and Spot nome
+@lugarId= {{ createSpot.response.body.id }}
+@lugarNome = {{ createSpot.response.body.name }}
+
+### Buscar lugar por eventoId e lugarId
+GET http://localhost:3001/eventos/{{eventoId}}/lugares/{{lugarId}}
+
+### Atualizar lugar por eventoId e lugarId
+PATCH http://localhost:3001/eventos/{{eventoId}}/lugares/{{lugarId}}
+Content-Type: application/json
+
+{
+  "nome": "B2"
+}
+
+### Deletar lugar por eventoId e lugarId
+DELETE  http://localhost:3001/eventos/{{eventoId}}/lugares/{{lugarId}}
+
+
+
+### Reserva lugares e cria tickets
+POST http://localhost:3001/eventos/{{eventoId}}/reservar
+Content-Type: application/json
+X-Api-Token: 5678
+
+{
+  "lugares": ["{{lugarNome}}"],
+  "tipo_ingresso": "inteira",
+  "email": "test@email.com"
+}
