@@ -1,0 +1,4 @@
+### Test Hello
+GET http://localhost:3000/prefixo/test
+### Test Events
+GET http://localhost:3000/events
